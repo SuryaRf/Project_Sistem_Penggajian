@@ -16,13 +16,66 @@ public class SistemPenggajian {
     static String[][] getUser = new String[2][2];
     static int menu;
     static String[] nama = new String[100];
-    static int hitungPegawai, gajiPokok, tunjangan, lembur = 10000, gajiLembur, pajak = 0;
+    static int hitungPegawai = 2, gajiPokok, tunjangan, lembur = 10000, gajiLembur, pajak = 0;
     static int[] totalGaji = new int[100];
     static String[] gender = new String[100];
     static int[] age = new int[100];
     static int[] id = new int[500];
     static String jenisK;
     static int language;
+    static int[] gajiNovember = new int[100];
+    static int displayAll;
+    static double pajakBilangan;
+    static {
+        for (int i = 0; i <= hitungPegawai; i++) {
+
+            nama[0] = "John Doe";
+            id[0] = 101;
+            jenisKelamin[0] = "Laki-laki";
+            age[0] = 28;
+            alamat[0] = "Jl. Contoh No. 123";
+            golongan[0] = "C";
+            jamLembur[0] = 5;
+            gajiNovember[0] = calculateSalary(0);
+
+            nama[1] = "Jane Doe";
+            id[1] = 102;
+            jenisKelamin[1] = "Perempuan";
+            age[1] = 25;
+            alamat[1] = "Jl. Contoh No. 456";
+            golongan[1] = "B";
+            jamLembur[1] = 3;
+            gajiNovember[1] = calculateSalary(1);
+
+            nama[2] = "Rahmat";
+            id[2] = 101;
+            jenisKelamin[2] = "Laki-laki";
+            age[2] = 28;
+            alamat[2] = "Jl. Contoh No. 123";
+            golongan[2] = "C";
+            jamLembur[2] = 5;
+            gajiNovember[2] = calculateSalary(2);
+
+            nama[3] = "Fatahillah";
+            id[3] = 302;
+            jenisKelamin[3] = "Perempuan";
+            age[3] = 25;
+            alamat[3] = "Jl. Contoh No. 456";
+            golongan[3] = "B";
+            jamLembur[3] = 3;
+            gajiNovember[3] = calculateSalary(3);
+        }
+        hitungPegawai++;
+
+    }
+
+    static int calculateSalary(int index) {
+
+        totalGaji[index] = gajiPokok + tunjangan + gajiLembur - pajak;
+        gajiNovember[index] = totalGaji[index];
+
+        return totalGaji[index];
+    }
 
     // validation Admin function
     static boolean validationAdmin(String username, String password) {
@@ -34,10 +87,20 @@ public class SistemPenggajian {
         return username.equals(userMain[0][1]) && password.equals(userMain[1][1]);
     }
 
+    static String[] frameData = new String[50];
+
+    // static void setFrameItem() {
+    // for (int i = 0; i < dataDummy.length; i++) {
+    // dataDummy[i] = frameData[i];
+
+    // }
+
+    // }// DATA DUMMY BELOM
+
     // login page admin function
     static void loginPageAdmin() {
         System.out.println("===============================================================");
-        System.out.println("                         * LOGIN *                             ");
+        System.out.println("                          \u001b[32m *LOGIN* \u001b[0m          ");
         System.out.println("===============================================================");
 
         System.out.print("Masukan Username : ");
@@ -71,50 +134,50 @@ public class SistemPenggajian {
             kode = sc.nextInt();
             sc.nextLine();
             if (kode == 1) {
-                // int j = 0;
-                // while (nama[j].) {
-                // j++;
-                // }
-                // for (int i = j; true; j++) {
-                for (int j = 0; true; j++) {
-                    System.out.print("Employee Name\t: ");
-                    nama[j] = sc.nextLine();
-                    System.out.print("Number ID\t: ");
-                    id[j] = sc.nextInt();
-                    System.out.print("Gender (M/F)\t: ");
-                    sc.nextLine();
-                    String jenisK = sc.nextLine();
-                    System.out.print("Age\t\t: ");
-                    age[j] = sc.nextInt();
-                    System.out.print("Address\t\t: ");
-                    sc.nextLine();
-                    alamat[j] = sc.nextLine();
-
-                    System.out.println("For Classes :");
-                    System.out.println("A = Part-time Employees");
-                    System.out.println("B = Internship");
-                    System.out.println("C = Permanent Staff");
-                    System.out.println("D = Manager");
-
-                    System.out.print("Class Input (A-D): ");
-                    golongan[j] = sc.nextLine();
-                    System.out.print("Input Overtime Time (Hours): ");
-                    jamLembur[j] = sc.nextInt();
-                    System.out.print("Continue ? (Y/N)\t:");
-                    String lanjut = sc.nextLine();
-                    lanjut = sc.nextLine();
-
-                    if (jenisK.equalsIgnoreCase("f")) {
-                        jenisKelamin[j] = "Perempuan";
-                    } else if (jenisK.equalsIgnoreCase("m")) {
-                        jenisKelamin[j] = "Laki-laki";
+                int j;
+                for (j = 0; j < nama.length; j++) {
+                    if (nama[j] == null) {
+                        break; // Found an empty slot, break the loop
                     }
-                    if (lanjut.equalsIgnoreCase("n")) {
-                        break;
-                    }
-
-                    hitungPegawai++;
                 }
+
+                if (j == nama.length) {
+                    System.out.println("Employee data is full. Cannot add more.");
+                    continue; // Go back to the main loop
+                }
+
+                // Input data into the first empty slot
+                System.out.print("Employee Name\t: ");
+                nama[j] = sc.nextLine();
+                System.out.print("Number ID\t: ");
+                id[j] = sc.nextInt();
+                System.out.print("Gender (M/F)\t: ");
+                sc.nextLine(); // Consume the newline character
+                jenisK = sc.nextLine();
+                System.out.print("Age\t\t: ");
+                age[j] = sc.nextInt();
+                System.out.print("Address\t\t: ");
+                sc.nextLine(); // Consume the newline character
+                alamat[j] = sc.nextLine();
+
+                System.out.println("For Classes :");
+                System.out.println("A = Part-time Employees");
+                System.out.println("B = Internship");
+                System.out.println("C = Permanent Staff");
+                System.out.println("D = Manager");
+
+                System.out.print("Class Input (A-D): ");
+                golongan[j] = sc.nextLine();
+                System.out.print("Input Overtime Time (Hours): ");
+                jamLembur[j] = sc.nextInt();
+
+                if (jenisK.equalsIgnoreCase("f")) {
+                    jenisKelamin[j] = "Perempuan";
+                } else if (jenisK.equalsIgnoreCase("m")) {
+                    jenisKelamin[j] = "Laki-laki";
+                }
+
+                hitungPegawai++;
             }
             if (kode == 2) {
                 for (int i = 0; i <= hitungPegawai; i++) {
@@ -123,7 +186,7 @@ public class SistemPenggajian {
                     System.out.println("Class Employee\t: " + golongan[i]);
                     System.out.println("Number ID\t: " + id[i]);
                     System.out.println("Gender\t\t: " + jenisKelamin[i]);
-                    System.out.println("Addres\t\t: " + alamat[i]);
+                    System.out.println("Address\t\t: " + alamat[i]);
                     System.out.println("Age\t\t: " + age[i]);
                     System.out.println("+---------------------------------+");
                 }
@@ -197,24 +260,138 @@ public class SistemPenggajian {
         System.out.println("+-----------------------------------------------------------+");
         System.out.println("+              Employee Salary Calculation +                +");
         System.out.println("+-----------------------------------------------------------+");
-        System.out.print("Enter Employee Name : ");
-        String nama2 = sc.nextLine();
 
-        for (int i = 0; i <= hitungPegawai; i++) {
-            if (nama[i].equalsIgnoreCase(nama2)) {
-                perhitungan(i);
-                cekPajak(i);
-                System.out.println("Base Salary      : Rp. " + gajiPokok);
-                System.out.println("Allowance Money  : RP. " + tunjangan);
-                System.out.println("Overtime Salary  : Rp. " + gajiLembur);
-                System.out.println("Tax              :     " + pajak + "%");
-                System.out.println("Total Salary     : Rp. " + totalGaji[i]);
-                break;
-            } else if (i == hitungPegawai) {
-                System.out.println("\u001b[31mThe Name You Entered is Not Registered!\u001b[0m");
+        // Ask the user for the desired month
+        System.out.println("╔═════════════════════════════════════════════════╗");
+        System.out.println("║ Enter month (11 for November, 12 for December): ║");
+        System.out.println("╚═════════════════════════════════════════════════╝");
+        int selectedMonth = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+
+        // Display the input prompt in a box for displayAll
+        System.out.println("╔════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Display salaries for all employees? (1 for Yes, 0 for No): ║");
+        System.out.println("╚════════════════════════════════════════════════════════════╝");
+        int displayAll = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+
+
+        if (selectedMonth == 11) {
+            if (displayAll == 1) {
+                // Display salaries for all employees
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    cetakSlipNov(i, selectedMonth);
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                }
+            } else {
+                // Display salary for a specific employee
+                System.out.print("Enter Employee Name : ");
+                String nama2 = sc.nextLine();
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                    if (nama[i].equalsIgnoreCase(nama2)) {
+                        cetakSlipNov(i, selectedMonth);
+                        break;
+                    } else if (i == hitungPegawai) {
+                        System.out.println("\u001b[31mThe Name You Entered is Not Registered!\u001b[0m");
+                    }
+                }
             }
-        }
+        } else if (selectedMonth == 12) {
+            if (displayAll == 1) {
+                // Display salaries for all employees
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    cetakSlip(i, selectedMonth);
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                }
+            } else {
+                // Display salary for a specific employee
+                System.out.print("Enter Employee Name : ");
+                String nama2 = sc.nextLine();
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                    if (nama[i].equalsIgnoreCase(nama2)) {
+                        cetakSlip(i, selectedMonth);
+                        break;
+                    } else if (i == hitungPegawai) {
+                        System.out.println("\u001b[31mThe Name You Entered is Not Registered!\u001b[0m");
+                    }
+                }
+            }
+        } // Consume the newline character
+
+        // Display salaries based on user input
+
     }
+
+    static void cetakSlipNov(int x, int selectedMonth) {
+        perhitungan(x);
+        cekPajak(x);
+
+        // Adjust the logic based on the selected month
+
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.println("+                      Employee Pay Slip                    +");
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.print("Date                 : ");
+        System.out.println("17 - Nov  - 2023");
+        System.out.println("Name                 :     " + nama[x]);
+        System.out.println("Base Salary          : Rp. " + gajiPokok);
+        System.out.println("Overtime Salary      : Rp. " + gajiLembur);
+        System.out.println("Allowance Money      : Rp. " + tunjangan);
+        System.out.println("Tax (Percentage)     : " + pajak + "%");
+        System.out.println("Tax (Numeric)        : " + pajakBilangan);
+        System.out.println("Salary Received      : Rp. " + totalGaji[x]);
+    }
+
+    static void cetakSlip(int x, int selectedMonth) {
+        perhitungan(x);
+        cekPajak(x);
+
+        // Adjust the logic based on the selected month
+
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.println("+                      Employee Pay Slip                    +");
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.print("Date                 : ");
+        System.out.println(tanggal);
+        System.out.println("Name                 :     " + nama[x]);
+        System.out.println("Base Salary          : Rp. " + gajiPokok);
+        System.out.println("Overtime Salary      : Rp. " + gajiLembur);
+        System.out.println("Allowance Money      : Rp. " + tunjangan);
+        System.out.println("Tax (Percentage)     : " + pajak + "%");
+        System.out.println("Tax (Numeric)        : " + pajakBilangan);
+        System.out.println("Salary Received      : Rp. " + totalGaji[x]);
+    }
+
+    // static void calculateSlry() {
+    // System.out.println("+-----------------------------------------------------------+");
+    // System.out.println("+ Employee Salary Calculation + +");
+    // System.out.println("+-----------------------------------------------------------+");
+    // System.out.print("Enter Employee Name : ");
+    // String nama2 = sc.nextLine();
+
+    // for (int i = 0; i <= hitungPegawai; i++) {
+    // if (nama[i].equalsIgnoreCase(nama2)) {
+    // perhitungan(i);
+    // cekPajak(i);
+
+    // double pajakBilangan = (pajak / 100.0) * totalGaji[i]; // Calculate tax in
+    // numeric value
+
+    // System.out.println("Base Salary : Rp. " + gajiPokok);
+    // System.out.println("Allowance Money : Rp. " + tunjangan);
+    // System.out.println("Overtime Salary : Rp. " + gajiLembur);
+    // System.out.println("Tax (Numeric) : Rp. " + pajakBilangan);
+    // System.out.println("Tax (Percentage) : " + pajak + "%");
+    // System.out.println("Total Salary : Rp. " + totalGaji[i]);
+    // break;
+    // } else if (i == hitungPegawai) {
+    // System.out.println("\u001b[31mThe Name You Entered is Not
+    // Registered!\u001b[0m");
+    // }
+    // }
+    // }
 
     static void searching() {
         System.out.println("[1] Search by Name ");
@@ -266,7 +443,7 @@ public class SistemPenggajian {
         System.out.println("+-----------------------------------------------------------+");
         System.out.println("+                    Salary Expense Report                  +");
         System.out.println("+-----------------------------------------------------------+");
-        System.out.print("Date : ");
+        System.out.print("Date : Mon Nov 13 12:00:15 WIB 2023 - ");
         System.out.println(tanggal);
         System.out.println();
         System.out.println();
@@ -282,44 +459,55 @@ public class SistemPenggajian {
             System.out.println("+------------------------------+");
             pengeluaran += totalGaji[j];
         }
+
         System.out.println("So Total Company Expenses for Salaries of All Employees = Rp. " + pengeluaran);
 
     }
 
-    // delete data function
-    static void deleteData() {
-        System.out.print("Enter the Name of the Employee You Want to Delete: ");
-        String namaHapus = sc.nextLine();
-    
-        // Search for the index of the employee data to be deleted
-        int indexHapus = -1;
-        for (int i = 0; i < hitungPegawai; i++) {
-            if (namaHapus.equals(nama[i])) {
-                indexHapus = i;
+    // delete data function BELOMMMM PLISS
+    static void deleteEmployee() {
+        System.out.print("Enter Employee Name to Delete: ");
+        String deleteName = sc.nextLine();
+
+        boolean found = false;
+        for (int i = 0; i <= hitungPegawai; i++) {
+            if (nama[i].equalsIgnoreCase(deleteName)) {
+                // Found the employee to delete
+                found = true;
+
+                // Move the remaining elements one position up to fill the gap
+                for (int j = i; j < hitungPegawai; j++) {
+                    nama[j] = nama[j + 1];
+                    id[j] = id[j + 1];
+                    jenisKelamin[j] = jenisKelamin[j + 1];
+                    age[j] = age[j + 1];
+                    alamat[j] = alamat[j + 1];
+                    golongan[j] = golongan[j + 1];
+                    jamLembur[j] = jamLembur[j + 1];
+                }
+
+                // Clear the last element
+                nama[hitungPegawai] = null;
+                id[hitungPegawai] = 0;
+                jenisKelamin[hitungPegawai] = null;
+                age[hitungPegawai] = 0;
+                alamat[hitungPegawai] = null;
+                golongan[hitungPegawai] = null;
+                jamLembur[hitungPegawai] = 0;
+
+                // Decrement the employee count
+                hitungPegawai--;
+
+                System.out.println("Employee data deleted successfully.");
                 break;
             }
         }
-    
-        // Delete the employee data from the array
-        if (indexHapus != -1) {
-            // Shift the employee data to the left starting from the index to be deleted
-            for (int i = indexHapus; i < hitungPegawai - 1; i++) {
-                nama[i] = nama[i + 1];
-                jenisKelamin[i] = jenisKelamin[i + 1];
-                golongan[i] = golongan[i + 1];
-                jamLembur[i] = jamLembur[i + 1];
-            }
-    
-            // Decrease the total number of employees
-            hitungPegawai--;
-        } else {
-            System.out.println("Employee data not found");
+
+        if (!found) {
+            System.out.println("\u001b[31mThe Name You Entered is Not Found!\u001b[0m");
         }
     }
-    
-    
 
-   
     static void perhitungan(int x) {
         if (golongan[x].equalsIgnoreCase("a")) {
             gajiPokok = 1000000;
@@ -419,50 +607,50 @@ public class SistemPenggajian {
             kode = sc.nextInt();
             sc.nextLine();
             if (kode == 1) {
-                // int j = 0;
-                // while (nama[j].) {
-                // j++;
-                // }
-                // for (int i = j; true; j++) {
-                for (int j = 0; true; j++) {
-                    System.out.print("Nama Karyawan       : ");
-                    nama[j] = sc.nextLine();
-                    System.out.print("Nomer ID            : ");
-                    id[j] = sc.nextInt();
-                    System.out.print("Jenis Kelamin (L/P) : ");
-                    sc.nextLine();
-                    String jenisK = sc.nextLine();
-                    System.out.print("Umur                : ");
-                    age[j] = sc.nextInt();
-                    System.out.print("Alamat              : ");
-                    sc.nextLine();
-                    alamat[j] = sc.nextLine();
-
-                    System.out.println(" Untuk Golongan :");
-                    System.out.println("A = Pengawai Paruh Waktu");
-                    System.out.println("B = Pengawai Magang");
-                    System.out.println("C = Pengawai Tetap");
-                    System.out.println("D = Manajer");
-
-                    System.out.print("Masukan Golongan (A-D)     : ");
-                    golongan[j] = sc.nextLine();
-                    System.out.print("Masukan Waktu lembur (jam) : ");
-                    jamLembur[j] = sc.nextInt();
-                    System.out.print("lanjut ? (Y/T)             : ");
-                    String lanjut = sc.nextLine();
-                    lanjut = sc.nextLine();
-
-                    if (jenisK.equalsIgnoreCase("p")) {
-                        jenisKelamin[j] = "Perempuan";
-                    } else if (jenisK.equalsIgnoreCase("l")) {
-                        jenisKelamin[j] = "Laki-laki";
+                int j;
+                for (j = 0; j < nama.length; j++) {
+                    if (nama[j] == null) {
+                        break; // Found an empty slot, break the loop
                     }
-                    if (lanjut.equalsIgnoreCase("T")) {
-                        break;
-                    }
-
-                    hitungPegawai++;
                 }
+
+                if (j == nama.length) {
+                    System.out.println("Data karyawan sudah penuh. Tidak dapat menambahkan lagi.");
+                    continue; // Go back to the main loop
+                }
+
+                // Input data into the first empty slot
+                System.out.print("Nama Karyawan\t : ");
+                nama[j] = sc.nextLine();
+                System.out.print("Nomor ID\t  : ");
+                id[j] = sc.nextInt();
+                System.out.print("Jenis Kelamin (L/P)\t: ");
+                sc.nextLine(); // Consume the newline character
+                jenisK = sc.nextLine();
+                System.out.print("Umur\t\t: ");
+                age[j] = sc.nextInt();
+                System.out.print("Alamat\t\t: ");
+                sc.nextLine(); // Consume the newline character
+                alamat[j] = sc.nextLine();
+
+                System.out.println("Untuk Golongan :");
+                System.out.println("A = Pengawai Paruh Waktu");
+                System.out.println("B = Pengawai Magang");
+                System.out.println("C = Pengawai Tetap");
+                System.out.println("D = Manajer");
+
+                System.out.print("Masukan Golongan (A-D) : ");
+                golongan[j] = sc.nextLine();
+                System.out.print("Masukan Waktu lembur (jam) : ");
+                jamLembur[j] = sc.nextInt();
+
+                if (jenisK.equalsIgnoreCase("p")) {
+                    jenisKelamin[j] = "Perempuan";
+                } else if (jenisK.equalsIgnoreCase("l")) {
+                    jenisKelamin[j] = "Laki-laki";
+                }
+
+                hitungPegawai++;
             }
             if (kode == 2) {
                 for (int i = 0; i <= hitungPegawai; i++) {
@@ -540,32 +728,119 @@ public class SistemPenggajian {
                 System.out.println("+-----------------------------------------------------------+");
                 System.out.println("Total Jumlah Pegawai : " + (hitungPegawai + 1) + " orang,");
 
-            } 
+            }
         } while (kode != 5);
     }
 
     static void hitungGaji() {
+
         System.out.println("+-----------------------------------------------------------+");
         System.out.println("+              Perhitungan Gaji Karyawan +                  +");
         System.out.println("+-----------------------------------------------------------+");
-        System.out.print("Masukan Nama Karyawan : ");
-        String nama2 = sc.nextLine();
 
-        for (int i = 0; i <= hitungPegawai; i++) {
-            if (nama[i].equalsIgnoreCase(nama2)) {
-                perhitungan(i);
-                cekPajak(i);
-                System.out.println("Gaji Pokok      : Rp. " + gajiPokok);
-                System.out.println("Uang Tunjangan  : Rp. " + tunjangan);
-                System.out.println("Uang Lembur     : Rp. " + gajiLembur);
-                System.out.println("Pajak           :     " + pajak + "%");
-                System.out.println("Total Gaji      : Rp. " + totalGaji[i]);
-                break;
-            } else if (i == hitungPegawai) {
-                System.out.println("\u001b[31mNama yang anda masukan tidak terdaftar!\u001b[0m");
+        // Ask the user for the desired month
+        System.out.println("╔════════════════════════════════════════════════════════╗");
+        System.out.println("║ Masukkan bulan (11 untuk November, 12 untuk Desember): ║");
+        System.out.println("╚════════════════════════════════════════════════════════╝");
+        int selectedMonth = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+
+        // Display the input prompt in a box for displayAll
+        System.out.println("╔═════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Menampilkan gaji untuk semua karyawan? (1 untuk Ya, 0 untuk Tidak): ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════╝");
+        int displayAll = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+
+
+        if (selectedMonth == 11) {
+            if (displayAll == 1) {
+                // Display salaries for all employees
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    cetakSlipNovInd(i, selectedMonth);
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                }
+            } else {
+                // Display salary for a specific employee
+                System.out.print("Masukan Nama Karyawan : ");
+                String nama2 = sc.nextLine();
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                    if (nama[i].equalsIgnoreCase(nama2)) {
+                        cetakSlipNovInd(i, selectedMonth);
+                        break;
+                    } else if (i == hitungPegawai) {
+                        System.out.println("\u001b[31mNama yang Anda Masukkan Tidak Terdaftar!\u001b[0m");
+                    }
+                }
             }
-        }
+        } else if (selectedMonth == 12) {
+            if (displayAll == 1) {
+                // Display salaries for all employees
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    cetakSlipInd(i, selectedMonth);
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                }
+            } else {
+                // Display salary for a specific employee
+                System.out.print("Masukan Nama Karyawan : ");
+                String nama2 = sc.nextLine();
+                for (int i = 0; i <= hitungPegawai; i++) {
+                    pajakBilangan = (pajak / 100.0) * totalGaji[i];
+                    if (nama[i].equalsIgnoreCase(nama2)) {
+                        cetakSlipInd(i, selectedMonth);
+                        break;
+                    } else if (i == hitungPegawai) {
+                        System.out.println("\u001b[31mNama yang Anda Masukkan Tidak Terdaftar!\u001b[0m");
+                    }
+                }
+            }
+        } // Consume the newline character
+
+        // Display salaries based on user input
+
     }
+
+    static void cetakSlipNovInd(int x, int selectedMonth) {
+        perhitungan(x);
+        cekPajak(x);
+
+        // Adjust the logic based on the selected month
+
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.println("+                      Slip Gaji Karyawan                   +");
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.print("Date                 : ");
+        System.out.println("17 - Nov  - 2023");
+        System.out.println("Nama                 :     " + nama[x]);
+        System.out.println("Gaji Pokok           : Rp. " + gajiPokok);
+        System.out.println("Uang Lembur          : Rp. " + gajiLembur);
+        System.out.println("Uang Tunjangan       : Rp. " + tunjangan);
+        System.out.println("Pajak (Persentase)   : " + pajak + "%");
+        System.out.println("Tax (Angka)          : " + pajakBilangan);
+        System.out.println("Gaji yang diterima   : Rp. " + totalGaji[x]);
+    }
+
+    static void cetakSlipInd(int x, int selectedMonth) {
+        perhitungan(x);
+        cekPajak(x);
+
+        // Adjust the logic based on the selected month
+
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.println("+                      Employee Pay Slip                    +");
+        System.out.println("+-----------------------------------------------------------+");
+        System.out.print("Date                 : ");
+        System.out.println(tanggal);
+        System.out.println("Nama                 :     " + nama[x]);
+        System.out.println("Gaji Pokok           : Rp. " + gajiPokok);
+        System.out.println("Uang Lembur          : Rp. " + gajiLembur);
+        System.out.println("Uang Tunjangan       : Rp. " + tunjangan);
+        System.out.println("Pajak (Persentase)   : " + pajak + "%");
+        System.out.println("Tax (Angka)          : " + pajakBilangan);
+        System.out.println("Gaji yang diterima   : Rp. " + totalGaji[x]);
+    }
+
 
     static void pencarian() {
         System.out.println("[1] Cari Berdasarkan Nama ");
@@ -619,7 +894,7 @@ public class SistemPenggajian {
         System.out.println("+-----------------------------------------------------------+");
         System.out.println("+                    Laporan Pengeluaran Gaji               +");
         System.out.println("+-----------------------------------------------------------+");
-        System.out.print("Tanggal : ");
+        System.out.print("Tanggal : Senin Nov 13 12:00:15 WIB 2023 - ");
         System.out.println(tanggal);
         System.out.println();
         System.out.println();
@@ -639,7 +914,7 @@ public class SistemPenggajian {
 
     }
 
-    // delete data function
+    // delete data function BLOMMM PLISS
     static void menghapusData() {
         System.out.print("Masukan Nama Karyawan Yang Ingin di Hapus: ");
         String namaHapus = sc.nextLine();
@@ -742,7 +1017,6 @@ public class SistemPenggajian {
                 nama[i] = sc.nextLine();
                 System.out.print("Jenis Kelamin (L/P): ");
                 jenisK = sc.nextLine();
-                sc.nextLine();
                 System.out.print("Umur: ");
                 age[i] = sc.nextInt();
                 System.out.print("Alamat: ");
@@ -789,19 +1063,20 @@ public class SistemPenggajian {
     }
 
     public static void main(String[] args) {
-        System.out.println(
-                " ._.   _________.__          __                   __________                                        __.__                ._. \r\n"
-                        + //
-                        " | |  /   _____/|__| _______/  |_  ____   _____   \\______   \\ ____   ____    ____   _________      |__|__|____    ____   | | \r\n"
-                        + //
-                        " |_|  \\_____  \\ |  |/  ___/\\   __\\/ __ \\ /     \\   |     ___// __ \\ /    \\  / ___\\ / ___\\__  \\     |  |  \\__  \\  /    \\  |_| \r\n"
-                        + //
-                        " |-|  /        \\|  |\\___ \\  |  | \\  ___/|  Y Y  \\  |    |   \\  ___/|   |  \\/ /_/  > /_/  > __ \\_   |  |  |/ __ \\|   |  \\ |-| \r\n"
-                        + //
-                        " | | /_______  /|__/____  > |__|  \\___  >__|_|  /  |____|    \\___  >___|  /\\___  /\\___  (____  /\\__|  |__(____  /___|  / | | \r\n"
-                        + //
-                        " |_|         \\/         \\/            \\/      \\/                 \\/     \\//_____//_____/     \\/\\______|       \\/     \\/  |_| ");
-        // setFrame();
+        System.out.println("\u001B[34m" +
+                " ._.   _________.__          __                   __________                                        __.__                ._. \n"
+                + //
+                " | |  /   _____/|__| _______/  |_  ____   _____   \\______   \\ ____   ____    ____   _________      |__|__|____    ____   | | \n"
+                + //
+                " |_|  \\_____  \\ |  |/  ___/\\   __\\/ __ \\ /     \\   |     ___// __ \\ /    \\  / ___\\ / ___\\__  \\     |  |  \\__  \\  /    \\  |_| \n"
+                + //
+                " |-|  /        \\|  |\\___ \\  |  | \\  ___/|  Y Y  \\  |    |   \\  ___/|   |  \\/ /_/  > /_/  > __ \\_   |  |  |/ __ \\|   |  \\ |-| \n"
+                + //
+                " | | /_______  /|__/____  > |__|  \\___  >__|_|  /  |____|    \\___  >___|  /\\___  /\\___  (____  /\\__|  |__(____  /___|  / | | \n"
+                + //
+                " |_|         \\/         \\/            \\/      \\/                 \\/     \\//_____//_____/     \\/\\______|       \\/     \\/  |_|\u001B[0m");
+
+        // setFrameItem();
         System.out.println();
         String line = "===============================================================";
         System.out.printf("%s\n\t     SELAMAT DATANG DI SISTEM PENGGAJIAN \n%s", line, line);
@@ -823,7 +1098,7 @@ public class SistemPenggajian {
                     loginPageAdmin();
                     if (validationAdmin) {
                         System.out.println("===============================================================");
-                        System.out.println("                     Selamat Datang Admin!");
+                        System.out.println("                     \u001b[32mSelamat Datang Admin!\u001b[0m");
                         System.out.println("===============================================================");
                         System.out.println(" Pilihan Bahasa");
                         System.out.println(" [1] English");
@@ -861,7 +1136,7 @@ public class SistemPenggajian {
                                         report();
                                         break;
                                     case 5:
-                                        deleteData();
+                                        deleteEmployee();
                                         break;
                                     case 6:
                                         menuProcess = false;
